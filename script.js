@@ -2,10 +2,19 @@ const gridSize = 4;
 const gameContainer = document.getElementById('game-container');
 const gameOverPopup = document.getElementById('game-over-popup');
 const restartButton = document.getElementById('restart-button');
+const currentScoreDisplay = document.getElementById('current-score');
+const highScoreDisplay = document.getElementById('high-score');
 let grid = [];
+let currentScore = 0;
+
+// Initialize High Score from localStorage
+let highScore = localStorage.getItem('highScore') || 0;
+highScoreDisplay.textContent = highScore;
 
 function createGrid() {
     grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
+    currentScore = 0;
+    updateScores();
     renderGrid();
     addRandomTile();
     addRandomTile();
@@ -41,6 +50,7 @@ function addRandomTile() {
         renderGrid();
     } else if (isGameOver()) {
         gameOverPopup.style.display = 'flex'; // Show popup when game is over
+        updateHighScore();
     }
 }
 
@@ -54,6 +64,7 @@ function move(direction) {
         for (let j = 0; j < newLine.length - 1; j++) {
             if (newLine[j] === newLine[j + 1]) {
                 newLine[j] *= 2;
+                currentScore += newLine[j];
                 newLine[j + 1] = 0;
                 moved = true;
             }
@@ -72,7 +83,10 @@ function move(direction) {
         moved = moved || JSON.stringify(line) !== JSON.stringify(newLine);
     }
 
-    if (moved) addRandomTile();
+    if (moved) {
+        addRandomTile();
+        updateScores();
+    }
 }
 
 function isGameOver() {
@@ -84,6 +98,23 @@ function isGameOver() {
         }
     }
     return true;
+}
+
+function updateScores() {
+    currentScoreDisplay.textContent = currentScore;
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        highScoreDisplay.textContent = highScore;
+        localStorage.setItem('highScore', highScore);
+    }
+}
+
+function updateHighScore() {
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        localStorage.setItem('highScore', highScore);
+        highScoreDisplay.textContent = highScore;
+    }
 }
 
 document.addEventListener('keydown', e => {
