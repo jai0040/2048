@@ -14,6 +14,7 @@ body {
     background: #bbada0;
     padding: 10px;
     border-radius: 10px;
+    position: relative;
 }
 .tile {
     width: 100px;
@@ -37,3 +38,35 @@ body {
 .tile[data-value="512"] { background: #edc850; color: #f9f6f2; }
 .tile[data-value="1024"] { background: #edc53f; color: #f9f6f2; }
 .tile[data-value="2048"] { background: #edc22e; color: #f9f6f2; }
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.popup h1 {
+    font-size: 2rem;
+    margin: 0 0 20px;
+}
+.popup button {
+    background: #8f7a66;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.popup button:hover {
+    background: #776e65;
+}

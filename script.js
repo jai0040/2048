@@ -1,5 +1,7 @@
 const gridSize = 4;
 const gameContainer = document.getElementById('game-container');
+const gameOverPopup = document.getElementById('game-over-popup');
+const restartButton = document.getElementById('restart-button');
 let grid = [];
 
 function createGrid() {
@@ -7,6 +9,7 @@ function createGrid() {
     renderGrid();
     addRandomTile();
     addRandomTile();
+    gameOverPopup.style.display = 'none'; // Hide popup on restart
 }
 
 function renderGrid() {
@@ -36,6 +39,8 @@ function addRandomTile() {
         const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         grid[row][col] = Math.random() < 0.9 ? 2 : 4;
         renderGrid();
+    } else if (isGameOver()) {
+        gameOverPopup.style.display = 'flex'; // Show popup when game is over
     }
 }
 
@@ -70,6 +75,17 @@ function move(direction) {
     if (moved) addRandomTile();
 }
 
+function isGameOver() {
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            if (grid[i][j] === 0) return false;
+            if (i < gridSize - 1 && grid[i][j] === grid[i + 1][j]) return false;
+            if (j < gridSize - 1 && grid[i][j] === grid[i][j + 1]) return false;
+        }
+    }
+    return true;
+}
+
 document.addEventListener('keydown', e => {
     switch (e.key) {
         case 'ArrowUp': move('up'); break;
@@ -78,5 +94,7 @@ document.addEventListener('keydown', e => {
         case 'ArrowRight': move('right'); break;
     }
 });
+
+restartButton.addEventListener('click', createGrid);
 
 createGrid();
