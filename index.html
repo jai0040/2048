@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header">
-        <h1>2048 Game</h1>
+    <header>
+        <h1 class="game-title">2048 Game</h1>
         <div class="scores">
-            <div>Score : <span id="current-score">0</span></div>
-            <div>Highest Score : <span id="high-score">0</span></div>
+            <div class="score-container">
+                <div>Score</div>
+                <span id="current-score">0</span>
+            </div>
+            <div class="score-container">
+                <div>High Score</div>
+                <span id="high-score">0</span>
+            </div>
         </div>
-    </div>
+    </header>
     <div class="game-container" id="game-container"></div>
     <div class="popup" id="game-over-popup">
         <h1>Game Over</h1>
