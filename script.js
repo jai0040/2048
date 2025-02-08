@@ -4,8 +4,15 @@ const gameOverPopup = document.getElementById('game-over-popup');
 const restartButton = document.getElementById('restart-button');
 const currentScoreDisplay = document.getElementById('current-score');
 const highScoreDisplay = document.getElementById('high-score');
+const settingsButton = document.getElementById('settings-button');
+const settingsMenu = document.getElementById('settings-menu');
+const musicButton = document.getElementById('music-button');
+const vibrateButton = document.getElementById('vibrate-button');
+
 let grid = [];
 let currentScore = 0;
+let isMusicOn = false;
+let isVibrateOn = false;
 
 // Initialize High Score from localStorage
 let highScore = localStorage.getItem('highScore') || 0;
@@ -54,41 +61,6 @@ function addRandomTile() {
     }
 }
 
-function move(direction) {
-    let moved = false;
-    for (let i = 0; i < gridSize; i++) {
-        let line = direction === 'left' || direction === 'right' ? grid[i] : grid.map(row => row[i]);
-        if (direction === 'right' || direction === 'down') line.reverse();
-
-        let newLine = line.filter(val => val !== 0);
-        for (let j = 0; j < newLine.length - 1; j++) {
-            if (newLine[j] === newLine[j + 1]) {
-                newLine[j] *= 2;
-                currentScore += newLine[j];
-                newLine[j + 1] = 0;
-                moved = true;
-            }
-        }
-
-        newLine = newLine.filter(val => val !== 0);
-        while (newLine.length < gridSize) newLine.push(0);
-        if (direction === 'right' || direction === 'down') newLine.reverse();
-
-        if (direction === 'left' || direction === 'right') {
-            grid[i] = newLine;
-        } else {
-            newLine.forEach((val, idx) => grid[idx][i] = val);
-        }
-
-        moved = moved || JSON.stringify(line) !== JSON.stringify(newLine);
-    }
-
-    if (moved) {
-        addRandomTile();
-        updateScores();
-    }
-}
-
 function isGameOver() {
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
@@ -127,5 +99,21 @@ document.addEventListener('keydown', e => {
 });
 
 restartButton.addEventListener('click', createGrid);
+
+settingsButton.addEventListener('click', () => {
+    settingsMenu.style.display = settingsMenu.style.display === 'flex' ? 'none' : 'flex';
+});
+
+musicButton.addEventListener('click', () => {
+    isMusicOn = !isMusicOn;
+    musicButton.textContent = `Music: ${isMusicOn ? 'On' : 'Off'}`;
+    console.log(`Music is now ${isMusicOn ? 'On' : 'Off'}`);
+});
+
+vibrateButton.addEventListener('click', () => {
+    isVibrateOn = !isVibrateOn;
+    vibrateButton.textContent = `Vibrate: ${isVibrateOn ? 'On' : 'Off'}`;
+    console.log(`Vibrate is now ${isVibrateOn ? 'On' : 'Off'}`);
+});
 
 createGrid();
