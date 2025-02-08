@@ -12,13 +12,75 @@ body {
 .header {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.scores-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .scores {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 5px;
     font-size: 1.2rem;
+}
+
+.settings {
+    position: relative;
+    z-index: 2;
+}
+
+.settings-icon {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8f7a66;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #ece4da;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.settings-icon:hover {
+    color: #776e65;
+}
+
+.settings-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: #8f7a66;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.settings-menu button {
+    padding: 10px;
+    font-size: 1rem;
+    background: #faf8ef;
+    color: #8f7a66;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.settings-menu button:hover {
+    background: #f0e6da;
 }
 
 .game-container {
@@ -28,7 +90,6 @@ body {
     background: #bbada0;
     padding: 10px;
     border-radius: 10px;
-    position: relative;
 }
 
 .tile {
@@ -43,6 +104,7 @@ body {
     border-radius: 5px;
 }
 
+/* Add the colors for tiles */
 .tile[data-value="2"] { background: #eee4da; color: #776e65; }
 .tile[data-value="4"] { background: #ede0c8; color: #776e65; }
 .tile[data-value="8"] { background: #f2b179; color: #f9f6f2; }
@@ -68,7 +130,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
 }
 
 .popup h1 {
@@ -87,42 +148,5 @@ body {
 }
 
 .popup button:hover {
-    background: #776e65;
-}
-
-#settings-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background: #8f7a66;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#settings-button:hover {
-    background: #776e65;
-}
-
-.settings-menu {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    gap: 10px;
-}
-
-.settings-menu button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background: #8f7a66;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.settings-menu button:hover {
     background: #776e65;
 }

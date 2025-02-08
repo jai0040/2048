@@ -9,15 +9,20 @@
 <body>
     <div class="header">
         <h1>2048 Game</h1>
-        <div class="scores">
-            <div>Score : <span id="current-score">0</span></div>
-            <div>Highest Score : <span id="high-score">0</span></div>
+        <div class="scores-container">
+            <div class="settings">
+                <button class="settings-icon" id="settings-button">⚙️</button>
+                <div class="settings-menu" id="settings-menu">
+                    <button id="music-button">Music</button>
+                    <button id="vibration-button">Vibration</button>
+                </div>
+            </div>
+            <div class="scores">
+                <div>Score: <span id="current-score">0</span></div>
+                <div>Highest Score: <span id="high-score">0</span></div>
+            </div>
         </div>
-        <button id="settings-button">Settings</button>
-    </div>
-    <div class="settings-menu" id="settings-menu">
-        <button id="music-button">Music: Off</button>
-        <button id="vibrate-button">Vibrate: Off</button>
+        
     </div>
     <div class="game-container" id="game-container"></div>
     <div class="popup" id="game-over-popup">
